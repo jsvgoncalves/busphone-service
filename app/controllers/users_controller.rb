@@ -11,27 +11,15 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @tickets = @user.tickets
-    # @new_user = [@user, @tickets]
-    # @new_user['tickets'] = '1'
-    # @user[:tickets] = @user.tickets
-    # respond_to do |format|
-    #   format.json { render :json => 
-    #           {:user => {
-    #             :data => @user,
-    #             :tickets => @tickets}
-    #           }
-    #         }
-    respond_to do |format|
-      format.json { render :json => 
-              {:user => {
-                :id => @user.id,
-                :name => @user.name,
-                :email => @user.email,
-                :tickets => @tickets}
-              }
-            }
-    end
-
+    render :json => 
+      {
+        :user => {
+          :id => @user.id,
+          :name => @user.name,
+          :email => @user.email,
+          :tickets => @tickets
+        }
+      }
   end
 
   # GET /users/new
