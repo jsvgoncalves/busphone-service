@@ -11,9 +11,10 @@ BusphoneService::Application.routes.draw do
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-  get 'users/:id/use/:ticket' => 'users#useTicket'
-  get 'users/:id/tickets' => 'users#getUserTickets'
-  get 'users/:id/tickets/:ticket_type' => 'users#getUserTicketsByType'
+  get 'users/:id/buy/:ticket_type/:amount' => 'users#buyTickets', defaults: {format: :json}
+  get 'users/:id/use/:ticket' => 'users#useTicket', defaults: {format: :json}
+  get 'users/:id/tickets' => 'users#getUserTickets', defaults: {format: :json}
+  get 'users/:id/tickets/:ticket_type' => 'users#getUserTicketsByType', defaults: {format: :json}
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

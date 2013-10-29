@@ -7,8 +7,27 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  # Buy tickets of a given type
+  # GET /users/:id/buy/:ticket_type/:amount
+  def buyTickets
+    @ticket = Ticket.new(
+      ticket_type: params[:ticket_type],
+      uuid: 'n/a', # !TODO : generate an uuid
+      user_id: params[:id])
+
+    # !TODO : reply with a purty message
+    if @ticket.save
+      render json: {:msg => :ok}
+    else
+      render json: {:msg => :failed}
+
+    end
+
+  end
+
 
   # Gets all the tickets from a given user
+  # GET /users/:id/tickets
   def getUserTickets
     @user = User.find(params[:id])
     render json: @user.tickets
@@ -16,10 +35,16 @@ class UsersController < ApplicationController
 
 
   # Gets all the tickets of a given type from a given user
+  # GET /users/:id/tickets/:ticket_type
   def getUserTicketsByType
-    @user = User.find(params[:id])
-    # The ! at the end of find_by raises ActiveRecord::RecordNotFound if no record is found
-    @tickets = Ticket.find_by! user_id: params[:id], ticket_type: params[:ticket_type]
+    @conditions = {user_id: params[:id], ticket_type: params[:ticket_type]}
+    @tickets = Ticket.find(:all, :conditions => @conditions)
+
+    # Handle empty results
+    if @tickets.empty?
+      raise(ActiveRecord::RecordNotFound)
+    end
+
     render json: @tickets
   end
 
