@@ -10,19 +10,16 @@ class UsersController < ApplicationController
   # Buy tickets of a given type
   # GET /users/:id/buy/:ticket_type/:amount
   def buyTickets
-    @ticket = Ticket.new(
-      ticket_type: params[:ticket_type],
-      uuid: 'n/a', # !TODO : generate an uuid
-      user_id: params[:id])
-
-    # !TODO : reply with a purty message
-    if @ticket.save
-      render json: {:msg => :ok}
-    else
-      render json: {:msg => :failed}
-
+    ActiveRecord::Base.transaction do
+      Integer(params[:amount]).times do
+        Ticket.create(
+          ticket_type: params[:ticket_type],
+          uuid: 'n/a', # !TODO : generate an uuid
+          user_id: params[:id])
+      end
     end
 
+    render json: {:msg => :ok}
   end
 
 
