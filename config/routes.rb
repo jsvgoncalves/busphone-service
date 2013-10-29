@@ -1,5 +1,5 @@
 BusphoneService::Application.routes.draw do
-  resources :tickets
+  resources :tickets, defaults: {format: :json}
 
   resources :users, defaults: {format: :json}
 
