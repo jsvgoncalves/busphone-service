@@ -7,6 +7,39 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+
+  # Gets all the tickets from a given user
+  def getUserTickets
+    @user = User.find(params[:id])
+    render json: @user.tickets
+  end
+
+
+  # Gets all the tickets of a given type from a given user
+  def getUserTicketsByType
+    @user = User.find(params[:id])
+    # The ! at the end of find_by raises ActiveRecord::RecordNotFound if no record is found
+    @tickets = Ticket.find_by! user_id: params[:id], ticket_type: params[:ticket_type]
+    render json: @tickets
+  end
+
+  def useTicket
+    @user = User.find(params[:id])
+
+    @ticket = Ticket.find(params[:ticket])
+    if @user.id == @ticket.user_id
+      render :json => { :msg => 'not implemented yet. thank you come again.'}
+    else 
+      render :json => 
+        {
+          :msg => 'this user has no access to that ticket',
+          :user => params[:id],
+          :ticket => params[:ticket],
+          :error => '3'
+        }
+    end
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show

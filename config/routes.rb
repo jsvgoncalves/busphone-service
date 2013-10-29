@@ -11,6 +11,9 @@ BusphoneService::Application.routes.draw do
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
+  get 'users/:id/use/:ticket' => 'users#useTicket'
+  get 'users/:id/tickets' => 'users#getUserTickets'
+  get 'users/:id/tickets/:ticket_type' => 'users#getUserTicketsByType'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
