@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131026172143) do
+ActiveRecord::Schema.define(version: 20131031172210) do
 
   create_table "tickets", force: true do |t|
     t.integer  "ticket_type"
@@ -26,6 +26,9 @@ ActiveRecord::Schema.define(version: 20131026172143) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "pw"
+    t.string   "token"
+    t.datetime "expirationDate"
   end
 
 end

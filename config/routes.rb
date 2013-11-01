@@ -1,7 +1,7 @@
 BusphoneService::Application.routes.draw do
   resources :tickets, defaults: {format: :json}
 
-  resources :users, defaults: {format: :json}
+  # resources :users, defaults: {format: :json}
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -11,10 +11,13 @@ BusphoneService::Application.routes.draw do
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-  get 'users/:id/buy/:ticket_type/:amount' => 'users#buyTickets', defaults: {format: :json}
-  get 'users/:id/use/:ticket' => 'users#useTicket', defaults: {format: :json}
-  get 'users/:id/tickets' => 'users#getUserTickets', defaults: {format: :json}
-  get 'users/:id/tickets/:ticket_type' => 'users#getUserTicketsByType', defaults: {format: :json}
+  get 'login/:email/:pw' => 'users#login'
+  get 'users/:id/buy/:ticket_type/:amount/t/:token' => 'users#buyTickets', defaults: {format: :json}
+  get 'users/:id/use/:ticket/t/:token' => 'users#useTicket', defaults: {format: :json}
+  get 'users/:id/tickets/t/:token' => 'users#getUserTickets', defaults: {format: :json}
+  get 'users/:id/tickets/:ticket_type/t/:token' => 'users#getUserTicketsByType', defaults: {format: :json}
+  get 'users/:id/t/:token' => 'users#show', defaults: {format: :json}
+
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

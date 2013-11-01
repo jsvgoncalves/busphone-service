@@ -1,6 +1,41 @@
+require 'securerandom'
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+
+  # GET /login/:email/:pw
+  def login
+    @conditions = {:email => params[:email],:pw => params[:pw]}
+    @user = User.find(:first, :conditions => @conditions)
+
+    # Checks if a username/pw combination exists
+    if !@user
+      render json: {
+        :status => :failed,
+        :msg => 'invalid username or password'
+      }
+      return
+    end
+
+    # Generate a new token and set expiration date
+    #token = SecureRandom.hex
+    @user.token = SecureRandom.urlsafe_base64(20)
+    @user.expirationDate = DateTime.now.tomorrow.to_time
+    
+    if @user.save
+      render json: {
+        :status => :ok,
+        :token => @user.token,
+        :expirationDate => @user.expirationDate,
+        :user_id => @user.id
+      }
+    else
+      render json: {
+        :status => :failed,
+        :msg => 'something went wrong'
+      }
+    end
+  end
   # GET /users
   # GET /users.json
   def index
