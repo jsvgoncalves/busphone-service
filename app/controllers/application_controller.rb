@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
   before_action :require_login
-  skip_before_action :require_login, only: [:new, :create, :login]
+  skip_before_action :require_login, only: [:new, :create, :login, :info]
 
   
   def require_login

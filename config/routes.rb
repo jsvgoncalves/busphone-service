@@ -19,6 +19,7 @@ BusphoneService::Application.routes.draw do
   get 'users/:id/tickets/:ticket_type/t/:token' => 'users#getUserTicketsByType', defaults: {format: :json}
   get 'users/:id/t/:token' => 'users#show', defaults: {format: :json}
   get 'users/create/:name/:email/:pw' => 'users#create', defaults: {format: :json}
+  get 'info' => 'users#info'
 
 
 

@@ -5,6 +5,17 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
 
+  # GET /info
+  def info
+    render json: {
+      :prices => {
+        1 => 1,
+        2 => 1.5,
+        3 => 2,
+      },
+      :promo => 10
+    }
+  end
   # GET /login/:email/:pw
   def login
     @conditions = {:email => params[:email],:pw => params[:pw]}
