@@ -1,5 +1,7 @@
 require 'securerandom'
 class UsersController < ApplicationController
+  rescue_from ActiveRecord::RecordNotUnique, :with => :record_not_unique
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
 
@@ -112,11 +114,6 @@ class UsersController < ApplicationController
       }
   end
 
-  # GET /users/new
-  def new
-    @user = User.new
-  end
-
   # GET /users/1/edit
   def edit
   end
@@ -126,14 +123,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @user }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      render :json => { status: :created, 
+        #user: @user,
+        :code => 1 }
+    else
+      render :json => { :msg => @user.errors, status: :unprocessable_entity }
     end
   end
 
@@ -169,6 +164,16 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email)
+      params.permit(:name, :email, :pw)
+    end
+
+    def record_not_unique
+      # $! is the error
+      render :json =>
+        {
+          :error => {
+            :msg => 'email already exists', :code => '3' }
+        }
+      true
     end
 end

@@ -17,6 +17,8 @@ BusphoneService::Application.routes.draw do
   get 'users/:id/tickets/t/:token' => 'users#getUserTickets', defaults: {format: :json}
   get 'users/:id/tickets/:ticket_type/t/:token' => 'users#getUserTicketsByType', defaults: {format: :json}
   get 'users/:id/t/:token' => 'users#show', defaults: {format: :json}
+  get 'users/create/:name/:email/:pw' => 'users#create', defaults: {format: :json}
+
 
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
