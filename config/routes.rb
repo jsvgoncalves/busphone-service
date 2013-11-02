@@ -12,7 +12,8 @@ BusphoneService::Application.routes.draw do
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
   get 'login/:email/:pw' => 'users#login'
-  get 'users/:id/buy/:ticket_type/:amount/t/:token' => 'users#buyTickets', defaults: {format: :json}
+  #get 'users/:id/buy/:ticket_type/:amount/t/:token' => 'users#buyTickets', defaults: {format: :json}
+  get 'users/:id/buy/:nt1/:nt2/:nt3/t/:token' => 'users#buyTickets', defaults: {format: :json}
   get 'users/:id/use/:ticket/t/:token' => 'users#useTicket', defaults: {format: :json}
   get 'users/:id/tickets/t/:token' => 'users#getUserTickets', defaults: {format: :json}
   get 'users/:id/tickets/:ticket_type/t/:token' => 'users#getUserTicketsByType', defaults: {format: :json}

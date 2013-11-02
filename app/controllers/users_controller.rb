@@ -47,11 +47,35 @@ class UsersController < ApplicationController
   # Buy tickets of a given type
   # GET /users/:id/buy/:ticket_type/:amount
   def buyTickets
+    nt1 = Integer(params[:nt1])
+    nt2 = Integer(params[:nt2])
+    nt3 = Integer(params[:nt3])
+
+    # Checks if the user deserves a free ticket
+    promo = (nt1 + nt2 + nt3) >= 10? 1 : 0;
+
     ActiveRecord::Base.transaction do
-      Integer(params[:amount]).times do
+      # type 1 tickets with promotion
+      (nt1 + promo).times do
         Ticket.create(
-          ticket_type: params[:ticket_type],
-          uuid: 'n/a', # !TODO : generate an uuid
+          ticket_type: 1,
+          uuid: SecureRandom.uuid,
+          user_id: params[:id])
+      end
+
+      #type 2 tickets
+      nt2.times do
+        Ticket.create(
+          ticket_type: 2,
+          uuid: SecureRandom.uuid,
+          user_id: params[:id])
+      end
+
+      #type 3 tickets
+      nt3.times do
+        Ticket.create(
+          ticket_type: 3,
+          uuid: SecureRandom.uuid,
           user_id: params[:id])
       end
     end
