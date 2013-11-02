@@ -16,6 +16,7 @@ class UsersController < ApplicationController
       :promo => 10
     }
   end
+
   # GET /login/:email/:pw
   def login
     @conditions = {:email => params[:email],:pw => params[:pw]}
@@ -39,7 +40,7 @@ class UsersController < ApplicationController
       render json: {
         :status => :ok,
         :token => @user.token,
-        :expirationDate => @user.expirationDate,
+        :expirationDate => @user.expirationDate.to_formatted_s(:db) ,
         :user_id => @user.id
       }
     else
