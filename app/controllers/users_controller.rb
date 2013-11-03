@@ -140,7 +140,13 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @tickets = @user.tickets
+    # @tickets = @user.tickets
+    @conditions = {user_id: @user.id, ticket_type: 1}
+    @t1 = Ticket.find(:all, :conditions => @conditions, :limit => 10)
+    @conditions = {user_id: @user.id, ticket_type: 2}
+    @t2 = Ticket.find(:all, :conditions => @conditions, :limit => 10)
+    @conditions = {user_id: @user.id, ticket_type: 3}
+    @t3 = Ticket.find(:all, :conditions => @conditions, :limit => 10)
     render :json => 
       {
         :status => 0,
@@ -148,7 +154,11 @@ class UsersController < ApplicationController
           :id => @user.id,
           :name => @user.name,
           :email => @user.email,
-          :tickets => @tickets
+          :tickets => {
+            :t1 => @t1,
+            :t2 => @t2,
+            :t3 => @t3
+          }
         }
       }
   end
