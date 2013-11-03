@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     # Checks if a username/pw combination exists
     if !@user
       render json: {
-        :status => :failed,
+        :status => 1,
         :msg => 'invalid username or password'
       }
       return
@@ -38,14 +38,14 @@ class UsersController < ApplicationController
     
     if @user.save
       render json: {
-        :status => :ok,
+        :status => 0,
         :token => @user.token,
         :expirationDate => @user.expirationDate.to_formatted_s(:db) ,
         :user_id => @user.id
       }
     else
       render json: {
-        :status => :failed,
+        :status => 1,
         :msg => 'something went wrong'
       }
     end
