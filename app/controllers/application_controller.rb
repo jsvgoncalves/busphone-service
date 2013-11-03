@@ -16,13 +16,13 @@ class ApplicationController < ActionController::Base
       # Check for expiration date
       if @user.expirationDate < DateTime.now.to_time
         render json: {
-          :status => :failed,
+          :status => 1,
           :msg => 'token expired.'
         }
       end
     else
       render json: {
-        :status => :failed,
+        :status => 2,
         :msg => 'invalid token.'
       }
     end

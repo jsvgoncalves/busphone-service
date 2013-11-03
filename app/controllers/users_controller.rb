@@ -141,6 +141,7 @@ class UsersController < ApplicationController
     @tickets = @user.tickets
     render :json => 
       {
+        :status => 0,
         :user => {
           :id => @user.id,
           :name => @user.name,
