@@ -92,7 +92,9 @@ class UsersController < ApplicationController
       end
     end
 
-    render json: {:msg => :ok}
+    render json: {
+      :status => 0,
+      :msg => :ok}
   end
 
 
@@ -161,11 +163,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render :json => { status: :created, 
-        #user: @user,
-        :code => 1 }
+      render :json => { :status => 0 }
     else
-      render :json => { :msg => @user.errors, status: :unprocessable_entity }
+      render :json => { :status => 1, :msg => @user.errors}
     end
   end
 
@@ -208,8 +208,8 @@ class UsersController < ApplicationController
       # $! is the error
       render :json =>
         {
-          :error => {
-            :msg => 'email already exists', :code => '3' }
+          :status => 2,
+          :msg => 'email already exists'
         }
       true
     end
