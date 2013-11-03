@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date_used: 2013-11-03 21:15:42
+  t.integer: 
+  t.string: MyString
+  : 
+  t.integer: 
+
+two:
+  date_used: 2013-11-03 21:15:42
+  t.integer: 
+  t.string: MyString
+  : 
+  t.integer: 

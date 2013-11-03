@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131102120000) do
+ActiveRecord::Schema.define(version: 20131103223132) do
+
+  create_table "bus_lines", force: true do |t|
+    t.integer  "line_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "buses", force: true do |t|
+    t.integer  "bus_plate"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "bus_line_id"
+  end
+
+  add_index "buses", ["bus_plate"], name: "index_buses_on_bus_plate", unique: true, using: :btree
 
   create_table "tickets", force: true do |t|
     t.integer  "ticket_type"
@@ -19,6 +34,15 @@ ActiveRecord::Schema.define(version: 20131102120000) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "used_tickets", force: true do |t|
+    t.datetime "date_used"
+    t.integer  "ticket_type"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "bus_id"
   end
 
   create_table "users", force: true do |t|
