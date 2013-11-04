@@ -14,7 +14,6 @@ BusphoneService::Application.routes.draw do
   get 'login/:email/:pw' => 'users#login'
   #get 'users/:id/buy/:ticket_type/:amount/t/:token' => 'users#buyTickets', defaults: {format: :json}
   get 'users/:id/buy/:nt1/:nt2/:nt3/t/:token' => 'users#buyTickets', defaults: {format: :json}
-  get 'users/:id/use/:ticket/t/:token' => 'users#useTicket', defaults: {format: :json}
   get 'users/:id/tickets/t/:token' => 'users#getUserTickets', defaults: {format: :json}
   get 'users/:id/tickets/:ticket_type/t/:token' => 'users#getUserTicketsByType', defaults: {format: :json}
   get 'users/:id/t/:token' => 'users#show', defaults: {format: :json}
@@ -26,7 +25,7 @@ BusphoneService::Application.routes.draw do
   # assigns the :bus_id to the :line:
   get 'bus/login/:bus_id/:line' => 'bus#login', defaults: {format: :json}
   # get all tickets validated in this bus in the last hour
-  get 'bus/validate/:bus_id/:ticket_id/:user_id' => 'bus#validate', defaults: {format: :json}
+  get 'bus/validate/:bus_id/:ticket_id/:user_id' => 'users#useTicket', defaults: {format: :json}
   # for bus creation (admin)
   get 'bus/create/:line_number' => 'bus#create', defaults: {format: :json}
 

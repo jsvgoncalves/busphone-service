@@ -34,8 +34,9 @@ class BusController < ApplicationController
     #end
   end
 
+  # all tickets from a bus used in the last hour
   def all_tickets
-
+    @used_tickets = UsedTicket.where()
   end
 
   def bus_line_params

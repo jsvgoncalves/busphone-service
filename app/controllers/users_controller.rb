@@ -120,28 +120,40 @@ class UsersController < ApplicationController
     render json: @tickets
   end
 
-  def useTicket
-    @user = User.find(params[:id])
 
-    @ticket = Ticket.where(uuid: params[:ticket]).first
+  # get bus/validate/:bus_id/:ticket_id/:user_id
+  def useTicket
+    @user = User.find_by_id(params[:user_id])
+
+    if !@user
+      render :json => { :msg => 'User not found.', :error => '1'}
+      return
+    end
+
+    @ticket = Ticket.where(uuid: params[:ticket_id]).first
+    if !@ticket
+      render :json => { :msg => 'Ticket not found.', :error => '3'}
+      return
+    end
+
     if @user.id == @ticket.user_id
 
       @used_ticket = UsedTicket.new()
-      
+      @used_ticket.bus_id = params[:bus_id]
       @used_ticket.ticket_type = @ticket.ticket_type
       @used_ticket.user_id = @ticket.user_id
 
       @used_ticket.save();
       @ticket.destroy();
       
-      render :json => { :msg => 'not implemented yet. thank you come again.'}
+      render :json => { :msg => @used_ticket}
     else 
       render :json => 
         {
           :msg => 'this user has no access to that ticket',
-          :user => params[:id],
-          :ticket => params[:ticket],
-          :error => '3'
+          :user => params[:user_id],
+          :ticket => params[:ticket_id],
+          :error => '4'
         }
     end
   end
