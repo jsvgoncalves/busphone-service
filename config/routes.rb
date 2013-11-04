@@ -29,7 +29,7 @@ BusphoneService::Application.routes.draw do
   # for bus creation (admin)
   get 'bus/create/:line_number' => 'bus#create', defaults: {format: :json}
 
-  get 'bus/b/:line_number/' => 'bus#all_tickets', defaults: {format: :json} # gets all tickets from a bus
+  get 'bus/b/:bus_id/' => 'bus#all_tickets', defaults: {format: :json} # gets all tickets from a bus
   #### get 'gadget/login/:id' => 'bus#create', defaults: {format: :json}
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
