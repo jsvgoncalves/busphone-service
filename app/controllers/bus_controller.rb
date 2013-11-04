@@ -7,8 +7,27 @@ class BusController < ApplicationController
     }
   end
 
+  # get 'bus/login/:bus_id/:line'
   def login
+    @bus = Bus.find_by_id(params[:bus_id])
+    if !@bus
+      @bus = Bus.new()
+    end
 
+    @bus_line = BusLine.where(line_number: params[:line]).first
+    if !@bus_line
+      # If the @bus_line was not found, just create it, for simplicity's sake
+      @bus_line = BusLine.new(params[:line])
+    end
+
+    @bus.bus_line_id = @bus_line.id
+    @bus.save
+    render :json => {
+        :msg => "Bus updated",
+        :bus_id => @bus.id,
+        :bus_line_id => @bus.bus_line_id,
+        :line_number => @bus_line.line_number
+      }
   end
 
   def validate
@@ -17,21 +36,16 @@ class BusController < ApplicationController
 
   def create
     @bus_line = BusLine.new(bus_line_params)
-
-    #respond_to do |format|
     if @bus_line.save
-        ## format.html { redirect_to @bus_line, notice: 'Ticket was successfully created.' }
-        ## format.json { render action: 'show', status: :created, line: bus_line_params[:line_number] }
-        lines = BusLine.find(:all)
-        render :json => {
-          :line => bus_line_params[:line_number],
-          :lines => lines
-        }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
-      end
-    #end
+      lines = BusLine.find(:all)
+      render :json => {
+        :line => bus_line_params[:line_number],
+        :lines => lines
+      }
+    else
+      format.html { render action: 'new' }
+      format.json { render json: @ticket.errors, status: :unprocessable_entity }
+    end
   end
 
   # all tickets from a bus used in the last hour/half hour/15 min
