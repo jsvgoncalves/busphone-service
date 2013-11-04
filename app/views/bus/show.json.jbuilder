@@ -1,1 +1,1 @@
-json.extract! @bus, :id, :bus_plate, :created_at, :updated_at
+json.extract! @bus_line, :id, :created_at, :updated_at, :line

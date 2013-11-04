@@ -22,15 +22,15 @@ BusphoneService::Application.routes.draw do
   get 'info' => 'users#info'
 
   # get all busline:
-  get 'bus/lines' => 'bus#lines', defaults: {format: :json}
+  get 'bus/lines/' => 'bus#all_lines', defaults: {format: :json}
   # assigns the :bus_id to the :line:
   get 'bus/login/:bus_id/:line' => 'bus#login', defaults: {format: :json}
   # get all tickets validated in this bus in the last hour
   get 'bus/validate/:bus_id/:ticket_id/:user_id' => 'bus#validate', defaults: {format: :json}
   # for bus creation (admin)
-  get 'bus/create/:bus_plate' => 'bus#create', defaults: {format: :json}
+  get 'bus/create/:line_number' => 'bus#create', defaults: {format: :json}
 
-  get 'bus/:bus_plate/' => 'bus#all_tickets', defaults: {format: :json} # gets all tickets from a bus
+  get 'bus/b/:line_number/' => 'bus#all_tickets', defaults: {format: :json} # gets all tickets from a bus
   #### get 'gadget/login/:id' => 'bus#create', defaults: {format: :json}
 
   # Example of named route that can be invoked with purchase_url(id: product.id)

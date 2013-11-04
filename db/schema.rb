@@ -11,13 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131103223132) do
+ActiveRecord::Schema.define(version: 20131104012824) do
 
   create_table "bus_lines", force: true do |t|
     t.integer  "line_number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "bus_lines", ["line_number"], name: "index_bus_lines_on_line_number", unique: true, using: :btree
 
   create_table "buses", force: true do |t|
     t.integer  "bus_plate"

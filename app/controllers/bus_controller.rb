@@ -1,7 +1,10 @@
 class BusController < ApplicationController
 
-  def lines
-
+  def all_lines
+    lines = BusLine.find(:all)
+    render :json => {
+      :lines => lines
+    }
   end
 
   def login
@@ -13,28 +16,30 @@ class BusController < ApplicationController
   end
 
   def create
+    @bus_line = BusLine.new(bus_line_params)
 
-    @bus = Bus.new(bus_params)
-    bus_plate = params[:bus_plate]
-    bus_id = @bus[:id]
-
-    respond_to do |format|
-      if @bus.save
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
-        format.json { render action: 'show', status: :created, id: bus_id, plate: bus_plate }
+    #respond_to do |format|
+      if @bus_line.save
+        ## format.html { redirect_to @bus_line, notice: 'Ticket was successfully created.' }
+        ## format.json { render action: 'show', status: :created, line: bus_line_params[:line_number] }
+        lines = BusLine.find(:all)
+        render :json => {
+          :line => bus_line_params[:line_number],
+          :lines => lines
+        }
       else
         format.html { render action: 'new' }
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end
-    end
+    #end
   end
 
   def all_tickets
 
   end
 
-  def bus_params
-      params.permit(:bus_plate)
+  def bus_line_params
+      params.permit(:line_number)
     end
 
 end
