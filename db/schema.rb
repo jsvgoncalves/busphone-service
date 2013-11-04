@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131104012824) do
+ActiveRecord::Schema.define(version: 20131104020100) do
 
   create_table "bus_lines", force: true do |t|
     t.integer  "line_number"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20131104012824) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tickets", ["uuid"], name: "index_tickets_on_uuid", unique: true, using: :btree
 
   create_table "used_tickets", force: true do |t|
     t.datetime "date_used"

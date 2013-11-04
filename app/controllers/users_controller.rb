@@ -123,8 +123,17 @@ class UsersController < ApplicationController
   def useTicket
     @user = User.find(params[:id])
 
-    @ticket = Ticket.find(params[:ticket])
+    @ticket = Ticket.where(uuid: params[:ticket]).first
     if @user.id == @ticket.user_id
+
+      @used_ticket = UsedTicket.new()
+      
+      @used_ticket.ticket_type = @ticket.ticket_type
+      @used_ticket.user_id = @ticket.user_id
+
+      @used_ticket.save();
+      @ticket.destroy();
+      
       render :json => { :msg => 'not implemented yet. thank you come again.'}
     else 
       render :json => 
