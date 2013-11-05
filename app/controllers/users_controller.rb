@@ -8,11 +8,9 @@ class UsersController < ApplicationController
   # GET /info
   def info
     render json: {
-      :prices => {
-        1 => 1,
-        2 => 1.5,
-        3 => 2,
-      },
+      :t1 => 1,
+      :t2 => 1.5,
+      :t3 => 2,
       :promo => 10
     }
   end

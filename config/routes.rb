@@ -20,9 +20,6 @@ BusphoneService::Application.routes.draw do
   get 'users/create/:name/:email/:pw' => 'users#create', defaults: {format: :json}
   get 'info' => 'users#info'
 
-  # returns ticket prices
-  get 'types' => 'tickets#types', defaults: {format: :json}
-
   # get all busline:
   get 'bus/lines/' => 'bus#all_lines', defaults: {format: :json}
   # assigns the :bus_id to the :line:
