@@ -21,6 +21,16 @@ class TicketsController < ApplicationController
   def edit
   end
 
+  #GET /types
+  def types
+    render :json => {
+        :t1 => "1.00",
+        :t2 => "1.15",
+        :t3 => "1.25",
+        :max => "10"
+      }
+  end
+
   # POST /tickets
   # POST /tickets.json
   def create
