@@ -18,18 +18,25 @@ BusphoneService::Application.routes.draw do
   get 'users/:id/tickets/:ticket_type/t/:token' => 'users#getUserTicketsByType', defaults: {format: :json}
   get 'users/:id/t/:token' => 'users#show', defaults: {format: :json}
   get 'users/create/:name/:email/:pw' => 'users#create', defaults: {format: :json}
+  get 'users/:id/history/t/:token' => 'users#getUsedTickets', defaults: {format: :json}
   get 'info' => 'users#info'
 
   # get all busline:
   get 'bus/lines/' => 'bus#all_lines', defaults: {format: :json}
+  
   # assigns the :bus_id to the :line:
   get 'bus/login/:bus_id/:line' => 'bus#login', defaults: {format: :json}
-  # get all tickets validated in this bus in the last hour
+  
+  # validate a ticket from the user
   get 'bus/validate/:bus_id/:ticket_id/:user_id' => 'users#useTicket', defaults: {format: :json}
+  
   # for bus creation (admin)
   get 'bus/create/:line_number' => 'bus#create', defaults: {format: :json}
 
-  get 'bus/b/:bus_id/' => 'bus#all_tickets', defaults: {format: :json} # gets all tickets from a bus
+  # get all tickets validated in this bus in the last hour and a half
+  get 'bus/b/:bus_id/' => 'bus#all_tickets', defaults: {format: :json}
+  
+
   #### get 'gadget/login/:id' => 'bus#create', defaults: {format: :json}
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
