@@ -30,10 +30,6 @@ class BusController < ApplicationController
       }
   end
 
-  def validate
-
-  end
-
   def create
     @bus_line = BusLine.new(bus_line_params)
     if @bus_line.save
