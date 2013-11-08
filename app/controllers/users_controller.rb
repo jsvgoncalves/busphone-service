@@ -148,11 +148,11 @@ class UsersController < ApplicationController
       @used_ticket.uuid = @ticket.uuid
       @used_ticket.date_used = DateTime.now.to_formatted_s(:db) # => "2007-01-18 06:10:17"
 
-      if @used_ticket.save()
+      if !@used_ticket.save()
         format.json { render json: @used_ticket.errors, status: :unprocessable_entity }
       end
 
-      if @ticket.destroy()
+      if !@ticket.destroy()
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end
       
