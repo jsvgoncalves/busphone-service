@@ -103,6 +103,11 @@ class UsersController < ApplicationController
     render json: @user.tickets
   end
 
+  def getUsedTickets
+    @used_tickets = UsedTicket.where(user_id: params[:id]).limit(10).order(date_used: :desc)
+    render json: @used_tickets
+  end
+
 
   # Gets all the tickets of a given type from a given user
   # GET /users/:id/tickets/:ticket_type
