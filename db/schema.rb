@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131104020100) do
+ActiveRecord::Schema.define(version: 20131108123726) do
 
   create_table "bus_lines", force: true do |t|
     t.integer  "line_number"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20131104020100) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "bus_id"
+    t.string   "uuid"
   end
 
   create_table "users", force: true do |t|

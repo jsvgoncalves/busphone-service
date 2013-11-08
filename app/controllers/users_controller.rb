@@ -145,7 +145,8 @@ class UsersController < ApplicationController
       @used_ticket.bus_id = params[:bus_id]
       @used_ticket.ticket_type = @ticket.ticket_type
       @used_ticket.user_id = @ticket.user_id
-      @used_ticket.date_used = DateTime.now
+      @used_ticket.uuid = @ticket.uuid
+      @used_ticket.date_used = DateTime.now.to_formatted_s(:db) # => "2007-01-18 06:10:17"
 
       @used_ticket.save();
       @ticket.destroy();
