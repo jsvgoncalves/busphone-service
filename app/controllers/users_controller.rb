@@ -178,6 +178,7 @@ class UsersController < ApplicationController
     @t2 = Ticket.find(:all, :conditions => @conditions, :limit => 10)
     @conditions = {user_id: @user.id, ticket_type: 3}
     @t3 = Ticket.find(:all, :conditions => @conditions, :limit => 10)
+    @used_tickets = UsedTicket.where(user_id: @user.id).limit(10)
     render :json => 
       {
         :status => 0,
@@ -188,7 +189,8 @@ class UsersController < ApplicationController
           :tickets => {
             :t1 => @t1,
             :t2 => @t2,
-            :t3 => @t3
+            :t3 => @t3,
+            :used => @used_tickets
           }
         }
       }
