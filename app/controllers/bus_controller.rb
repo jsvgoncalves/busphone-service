@@ -3,6 +3,7 @@ class BusController < ApplicationController
   def all_lines
     lines = BusLine.find(:all)
     render :json => {
+      :status => 0,
       :lines => lines
     }
   end
@@ -23,6 +24,7 @@ class BusController < ApplicationController
     @bus.bus_line_id = @bus_line.id
     @bus.save
     render :json => {
+        :status => 0,
         :msg => "Bus updated",
         :bus_id => @bus.id,
         :bus_line_id => @bus.bus_line_id,
@@ -35,6 +37,7 @@ class BusController < ApplicationController
     if @bus_line.save
       lines = BusLine.find(:all)
       render :json => {
+        :status => 0,
         :line => bus_line_params[:line_number],
         :lines => lines
       }
@@ -49,15 +52,16 @@ class BusController < ApplicationController
   def all_tickets
     @bus = Bus.find_by_id(params[:bus_id])
     if !@bus
-      render :json => { :msg => 'Bus not found.', :error => '1'}
+      render :json => { :msg => 'Bus not found.', :status => '1'}
       return
     end
 
     @used_tickets = UsedTicket.where(bus_id: @bus.id)
     if !@used_tickets
-      render :json => { :msg => 'No Tickets found.', :error => '2'}
+      render :json => { :msg => 'No Tickets found.', :status => '2'}
     else 
       render :json => {
+        :status => 0,
         :used_tickets => @used_tickets
       }
     end
